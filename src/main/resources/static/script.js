@@ -62,7 +62,7 @@ function submitForm(event) {
 
     const formData = new FormData(event.target);
 
-    fetch('/submit', {
+    fetch('submit', {
         method: 'POST',
         body: formData
     })
