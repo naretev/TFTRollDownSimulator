@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFTRollDownSimulator</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <script src="echarts/echarts.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="text-center mx-5 my-3 p-3 border border-secondary bg-primary bg-gradient bg-opacity-10">
+        <h1>Naretev's TFTRollDownSimulator</h1>
+    </div>
+    <div class="row mx-5 my-3">
+        <div class="col-4 p-3 border border-secondary bg-primary bg-gradient bg-opacity-10">
+            <form id="form">
+                <label for="tierSlider" class="form-label unselectable">Select champion tier: 1</label>
+                <input type="range" class="form-range" name="tier" min="1" max="5" value="1" id="tierSlider">
+                <label for="levelSlider" class="form-label unselectable">Select your level: 1</label>
+                <input type="range" class="form-range" name="level" min="1" max="11" value="1" id="levelSlider">
+
+                <label for="poolInput" class="form-label text-info-emphasis unselectable">Number of tier 1 champions out of the pool:</label>
+                <input type="number" class="form-control" name="poolConcentration" id="poolInput" step="5" value="0"  min="0">
+                <label for="duplicatorInput" class="form-label unselectable">Number of applicable champion duplicators:</label>
+                <input type="number" class="form-control" name="championDuplicators" id="duplicatorInput" value="0" min="0" max="10">
+                <label for="playerLevels" class="form-label text-info-emphasis unselectable">Levels of other players in your game:</label>
+                <input type="text" class="form-control" name="playerLevels" id="playerLevels" value="1-1-1-1-1-1-1">
+
+                <nav>
+                    <div class="nav nav-tabs my-3" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="unit1-tab" data-bs-toggle="tab" data-bs-target="#unit1" type="button" role="tab" aria-controls="unit1" aria-selected="true">Unit 1</button>
+                        <button class="nav-link" id="unit2-tab" data-bs-toggle="tab" data-bs-target="#unit2" type="button" role="tab" aria-controls="unit2" aria-selected="false">Unit 2</button>
+                        <button class="nav-link" id="unit3-tab" data-bs-toggle="tab" data-bs-target="#unit3" type="button" role="tab" aria-controls="unit3" aria-selected="false">Unit 3</button>
+                    </div>
+                </nav>
+                <div class="tab-content mb-2" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="unit1" role="tabpanel" aria-labelledby="unit1-tab" tabindex="0">
+                        <label for="targetInput0" class="form-label unselectable">Star level you want to achieve:</label>
+                        <select class="form-select" name="unitData0target" id="targetInput0">
+                            <option value="1">One star</option>
+                            <option value="3">Two star</option>
+                            <option value="9">Three star</option>
+                        </select>
+                        <label for="copiesInput0" class="form-label unselectable">Number of copies you own of this unit:</label>
+                        <input type="number" class="form-control" name="unitData0copies" id="copiesInput0" value="0" min="0">
+                        <label for="contestedInput0" class="form-label unselectable">Number of copies other players own of this unit:</label>
+                        <input type="number" class="form-control" name="unitData0contested" id="contestedInput0" value="0" min="0">
+                    </div>
+                    <div class="tab-pane fade" id="unit2" role="tabpanel" aria-labelledby="unit2-tab" tabindex="0">
+                        <label for="targetInput1" class="form-label unselectable">Star level you want to achieve:</label>
+                        <select class="form-select" name="unitData1target" id="targetInput1" onchange="handleSelectChange(this)">
+                            <option selected value="0">Choose a star level to activate</option>
+                            <option value="1">One star</option>
+                            <option value="3">Two star</option>
+                            <option value="9">Three star</option>
+                        </select>
+                        <label for="copiesInput1" class="form-label unselectable">Number of copies you own of this unit:</label>
+                        <input type="number" class="form-control" name="unitData1copies" id="copiesInput1" min="0" disabled>
+                        <label for="contestedInput1" class="form-label unselectable">Number of copies other players own of this unit:</label>
+                        <input type="number" class="form-control" name="unitData1contested" id="contestedInput1" min="0" disabled>
+                    </div>
+                    <div class="tab-pane fade" id="unit3" role="tabpanel" aria-labelledby="unit3-tab" tabindex="0">
+                        <label for="targetInput2" class="form-label unselectable">Star level you want to achieve:</label>
+                        <select class="form-select" name="unitData2target" id="targetInput2" onchange="handleSelectChange(this)">
+                            <option selected value="0">Choose a star level to activate</option>
+                            <option value="1">One star</option>
+                            <option value="3">Two star</option>
+                            <option value="9">Three star</option>
+                        </select>
+                        <label for="copiesInput2" class="form-label unselectable">Number of copies you own of this unit:</label>
+                        <input type="number" class="form-control" name="unitData2copies" id="copiesInput2" min="0" disabled>
+                        <label for="contestedInput2" class="form-label unselectable">Number of copies other players own of this unit:</label>
+                        <input type="number" class="form-control" name="unitData2contested" id="contestedInput2" min="0" disabled>
+                    </div>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </form>
+        </div>
+        <div class="col-8 p-0 border border-secondary bg-primary bg-gradient bg-opacity-10">
+            <div id="chart" style="width: 100%; height: 100%"></div>
+        </div>
+    </div>
+    <div class="row mx-5 my-3 border border-secondary bg-primary bg-gradient bg-opacity-10">
+        <h2 class="text-center p-4">Description</h2>
+        <div class="col-6 p-3 px-5 pe-3">
+            <h5>Clarifications</h5>
+            <p>Specific data doesn't necessitate pinpoint accuracy to produce reasonably precise results. A variation of 10 units related to other same-tiered units on the field won't generate a notable variance, particularly at lower tiers. Similarly, when it comes to other player levels, aligning them with your own level&mdash;especially in the context of lower tiers&mdash;will frequently prove adequate. The fields with a <span class="text-info-emphasis">light blue</span> label above them denote less crucial information, while those with white text hold significance in ensuring accuracy.</p>
+
+            <p>Tier refers to the tier of each and every champion considered within this simulator. Due to distinct pools for each tier, solely champions of the same tier impact the likelihood of rolling a specific champion. This restriction is why you can only roll for champions sharing the same tier concurrently.</p>
+
+            <p>When providing the count of champions not in the pool, ensure you exclude those you intend to roll for. These are specified within the Unit tabs.</p>
+
+            <p>The hardcoded limit for the number of rolls per simulation is set at 300. This limitation prevents overwhelming the server with excessive requests, ensuring stable performance. For instance, trying to roll for a 3-star tier 5 unit at level 7, with only a 1% chance of getting a tier 5 unit per roll, may result in a resource-intensive situation without providing meaningful insights.</p>
+        </div>
+        <div class="col-6 p-3 pe-5">
+            <h5>About the Simulator</h5>
+            <p>This Monte Carlo simulator takes into account all variables that influence the chances of obtaining a specific number of copies of up to 3 distinct units of the same tier. The simulator emulates the shops of other players based on their levels, then repeatedly simulates its own shop until it accumulates all the required units. During this process, the simulator purchases champions of the same tier, except when the board is full.</p>
+
+            <p>The simulator assumes that you have one instance of each unit you're seeking on the field and keeps track of all other units on the board. When you acquire 1, 3, or 9 copies, depending on the star level, the simulator discontinues the search for that unit and treats any additional copies as same-tiered units while pursuing the remaining ones. After each shop simulation, the simulator checks whether the total copies found along with any duplicators meet the criteria or if further rolling is necessary.</p>
+
+            <p>This process is repeated 20,000 times, and the resulting data is presented in the chart for analysis.</p>
+        </div>
+    </div>
+</div>
+<script src="js/bootstrap.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
