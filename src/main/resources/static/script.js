@@ -12,7 +12,7 @@ const levelSlider = document.getElementById("levelSlider");
 const levelLabel = document.querySelector('label[for="levelSlider"]');
 const playerLevels = document.getElementById("playerLevels");
 levelSlider.addEventListener("input", () => {
-    levelLabel.textContent = `Select champion level: ${levelSlider.value}`;
+    levelLabel.textContent = `Select your level: ${levelSlider.value}`;
     playerLevels.value = `${levelSlider.value}-${levelSlider.value}-${levelSlider.value}-${levelSlider.value}-${levelSlider.value}-${levelSlider.value}-${levelSlider.value}`
 });
 
