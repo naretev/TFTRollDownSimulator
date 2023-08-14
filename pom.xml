@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.naretevprojects.tft</groupId>
 	<artifactId>roll-down-simulator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>TFTRollDownSimulator</name>
 	<description>TFTRollDownSimulator</description>
 	<properties>
