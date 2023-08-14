@@ -7,6 +7,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.naretevprojects.tft.rolldownsimulator.service.Shops;
+import com.naretevprojects.tft.rolldownsimulator.service.UnitData;
+
 public class ShopsTest {
     @Test
     public void getSameTierUnits() {
