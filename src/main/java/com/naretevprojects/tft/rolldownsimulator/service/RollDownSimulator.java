@@ -1,4 +1,4 @@
-package com.naretevprojects.tft.rolldownsimulator;
+package com.naretevprojects.tft.rolldownsimulator.service;
 
 import java.util.ArrayList;
 import java.util.Collections;

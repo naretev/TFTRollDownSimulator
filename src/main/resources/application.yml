@@ -1,0 +1,17 @@
+logging:
+  level:
+    com.naretevprojects.tft.rolldownsimulator: INFO
+spring:
+  banner:
+    location: classpath:/cfg/banner.txt
+application:
+  version: Version 1.0.1-SNAPSHOT
+  title: TFT Roll Down Simulator
+server:
+  servlet:
+    context-path: /tftrolldownsimulator
+service:
+  iterations: 20000
+  html:
+    heading: Naretev's TFT Roll Down Simulator
+    home-page-title: Naretev's TFT Roll Down Simulator - Home Page

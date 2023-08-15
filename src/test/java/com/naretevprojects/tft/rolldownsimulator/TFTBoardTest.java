@@ -7,6 +7,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.naretevprojects.tft.rolldownsimulator.service.TFTBoard;
+import com.naretevprojects.tft.rolldownsimulator.service.UnitData;
+
 public class TFTBoardTest {
 
     @Test

@@ -1,4 +1,4 @@
-package com.naretevprojects.tft.rolldownsimulator;
+package com.naretevprojects.tft.rolldownsimulator.service;
 
 public class UnitData {
     public final int target;
