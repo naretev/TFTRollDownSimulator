@@ -1,4 +1,4 @@
-package com.naretevprojects.tft.rolldownsimulator;
+package com.naretevprojects.tft.rolldownsimulator.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +15,7 @@ public class RollDownSimulator {
     private final int championDuplicators;
 
     private final int shopOdds;
+    //private final int headlinerOdds;
     private final int numberOfUnits;
     private final int numberOfCopies;
     private final List<Integer> otherPlayerShopOdds;
@@ -39,17 +40,30 @@ public class RollDownSimulator {
                 {75, 25, 0, 0, 0},
                 {55, 30, 15, 0, 0},
                 {45, 33, 20, 2, 0},
-                {25, 40, 30, 5, 0},
-                {19, 30, 35, 15, 1},
-                {16, 20, 35, 25, 4},
-                {9, 15, 30, 30, 16},
+                {30, 40, 25, 5, 0},
+                {19, 35, 35, 10, 1},
+                {18, 25, 36, 18, 3},
+                {10, 20, 25, 35, 10},
                 {5, 10, 20, 40, 25},
-                {1, 2, 12, 50, 35},
+                {1, 2, 12, 50, 35}
         };
         this.shopOdds = shopOddsSpreadCheat[level-1][tier-1];
-        int[] numberOfUnitsInTier = {13, 13, 13, 12, 8};
+        int[][] headlinerOddsSpreadCheat = {
+                {100, 0, 0, 0, 0},
+                {100, 0, 0, 0, 0},
+                {100, 0, 0, 0, 0},
+                {80, 20, 0, 0, 0},
+                {30, 70, 0, 0, 0},
+                {0, 75, 25, 0, 0},
+                {0, 40, 60, 0, 0},
+                {0, 0, 70, 30, 0},
+                {0, 0, 0, 90, 10},
+                {0, 0, 0, 30, 70}
+        };
+        //this.headlinerOdds = headlinerOddsSpreadCheat[level-1][tier-1];
+        int[] numberOfUnitsInTier = {13, 13, 13, 13, 8};
         this.numberOfUnits = numberOfUnitsInTier[tier-1];
-        int[] numberOfCopiesInTier = {29, 22, 18, 12, 10};
+        int[] numberOfCopiesInTier = {22, 20, 17, 10, 9};
         this.numberOfCopies = numberOfCopiesInTier[tier-1];
         this.random = new Random();
         this.otherPlayerShopOdds = new ArrayList<>();
@@ -140,7 +154,7 @@ public class RollDownSimulator {
                         break;
                     }
                 }
-                //If there was no desired unit, it was a same tiered unit, but it
+                //If there was no desired unit, it was a same tiered unit, buy it
                 if (!desiredUnitBought) {
                     board.buySameTierUnit();
                 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TFTRollDownSimulator</title>
+    <title th:text="${title}"></title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
@@ -12,7 +12,7 @@
 <body>
 <div class="container">
     <div class="text-center mx-5 my-3 p-3 border border-secondary bg-primary bg-gradient bg-opacity-10">
-        <h1>Naretev's TFTRollDownSimulator</h1>
+        <h1 th:text="${heading}"></h1>
     </div>
     <div class="row mx-5 my-3">
         <div class="col-4 p-3 border border-secondary bg-primary bg-gradient bg-opacity-10">
@@ -22,12 +22,35 @@
                 <label for="levelSlider" class="form-label unselectable">Select your level: 1</label>
                 <input type="range" class="form-range" name="level" min="1" max="11" value="1" id="levelSlider">
 
-                <label for="poolInput" class="form-label text-info-emphasis unselectable">Number of tier 1 champions out of the pool:</label>
-                <input type="number" class="form-control" name="poolConcentration" id="poolInput" step="5" value="0"  min="0">
-                <label for="duplicatorInput" class="form-label unselectable">Number of applicable champion duplicators:</label>
+                <label for="poolInput" class="form-label unselectable">Number of tier <span id="tierValue">1</span> champions out of the pool:
+                    <div class="myTooltip unselectable"><b>i</b>
+                        <span class="myTooltipText">This number represents all units out of the pool in the tier you've selected, excluding the ones you want to upgrade. A rough estimate is good enough here to give you an accurate result</span>
+                    </div>
+                </label>
+                <input type="number" class="form-control" name="poolConcentration" id="poolInput" value="0"  min="0">
+
+                <label for="duplicatorInput" class="form-label unselectable">Number of applicable champion duplicators:
+                    <div class="myTooltip unselectable"><b>i</b>
+                        <span class="myTooltipText">Enter the number of champion duplicators you have that works for your tier. The simulation will use all of your champion duplicators to get the last units you need.</span>
+                    </div>
+                </label>
                 <input type="number" class="form-control" name="championDuplicators" id="duplicatorInput" value="0" min="0" max="10">
-                <label for="playerLevels" class="form-label text-info-emphasis unselectable">Levels of other players in your game:</label>
+
+                <label for="playerLevels" class="form-label unselectable">Levels of other players in your game:
+                    <div class="myTooltip unselectable"><b>i</b>
+                        <span class="myTooltipText">This data has a very minor effect on the result, but for the most accurate results possible, enter the level of all other players in your game. If any players have died, simply remove a digit and a minus sign and the simulation will assume they're out.</span>
+                    </div>
+                </label>
                 <input type="text" class="form-control" name="playerLevels" id="playerLevels" value="1-1-1-1-1-1-1">
+<!--
+                <div class="form-check form-switch my-3">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Use Headliner</label>
+                    <div class="myTooltip unselectable"><b>i</b>
+                        <span class="myTooltipText">If you don't mind your upgraded unit to be a headliner to find it faster and cheaper, check this box to make the simulation buy a relevant headliner when found.</span>
+                    </div>
+                </div>
+-->
 
                 <nav>
                     <div class="nav nav-tabs my-3" id="nav-tab" role="tablist">
@@ -84,24 +107,26 @@
         </div>
     </div>
     <div class="row mx-5 my-3 border border-secondary bg-primary bg-gradient bg-opacity-10">
-        <h2 class="text-center p-4">Description</h2>
-        <div class="col-6 p-3 px-5 pe-3">
-            <h5>Clarifications</h5>
-            <p>Specific data doesn't necessitate pinpoint accuracy to produce reasonably precise results. A variation of 10 units related to other same-tiered units on the field won't generate a notable variance, particularly at lower tiers. Similarly, when it comes to other player levels, aligning them with your own level&mdash;especially in the context of lower tiers&mdash;will frequently prove adequate. The fields with a <span class="text-info-emphasis">light blue</span> label above them denote less crucial information, while those with white text hold significance in ensuring accuracy.</p>
+        <div class="col-6 pt-3 px-5 pe-3">
+            <h4>Remix Rumble Update</h4>
+            <p>The main thing that has changed in this update is the pool / bag sizes and the number of units in each tier. The only other thing that has an effect on the odds are the headliners.</p>
 
-            <p>Tier refers to the tier of each and every champion considered within this simulator. Due to distinct pools for each tier, solely champions of the same tier impact the likelihood of rolling a specific champion. This restriction is why you can only roll for champions sharing the same tier concurrently.</p>
+            <p>In and upcoming update, I will add the feature that takes headliners into consideration when performing the simulation.</p>
 
-            <p>When providing the count of champions not in the pool, ensure you exclude those you intend to roll for. These are specified within the Unit tabs.</p>
+            <p>If you have any suggestions you can message me on <a href="https://www.reddit.com/user/naretev/">Reddit</a>.</p>
 
-            <p>The hardcoded limit for the number of rolls per simulation is set at 300. This limitation prevents overwhelming the server with excessive requests, ensuring stable performance. For instance, trying to roll for a 3-star tier 5 unit at level 7, with only a 1% chance of getting a tier 5 unit per roll, may result in a resource-intensive situation without providing meaningful insights.</p>
+            <h4>Limitations</h4>
+            <p>The hardcoded limit for the number of rolls per simulation is set at 300. This limitation prevents overwhelming the server with excessive requests, ensuring stable performance. For instance, trying to roll for a 3-star tier 5 unit at level 7, with only a 1% chance of getting a tier 5 unit per roll, may result in a resource-intensive situation without providing meaningful insights (unless you're sitting on more than 600 gold).</p>
         </div>
-        <div class="col-6 p-3 pe-5">
-            <h5>About the Simulator</h5>
+        <div class="col-6 pt-3 px-3 pe-5">
+            <h4>About the Simulator</h4>
             <p>This Monte Carlo simulator takes into account all variables that influence the chances of obtaining a specific number of copies of up to 3 distinct units of the same tier. The simulator emulates the shops of other players based on their levels, then repeatedly simulates its own shop until it accumulates all the required units. During this process, the simulator purchases champions of the same tier, except when the board is full.</p>
 
             <p>The simulator assumes that you have one instance of each unit you're seeking on the field and keeps track of all other units on the board. When you acquire 1, 3, or 9 copies, depending on the star level, the simulator discontinues the search for that unit and treats any additional copies as same-tiered units while pursuing the remaining ones. After each shop simulation, the simulator checks whether the total copies found along with any duplicators meet the criteria or if further rolling is necessary.</p>
 
             <p>This process is repeated 20,000 times, and the resulting data is presented in the chart for analysis.</p>
+
+            <p>For more information visit my <a href="https://github.com/naretev/TFTRollDownSimulator">GitHub</a>.</p>
         </div>
     </div>
 </div>

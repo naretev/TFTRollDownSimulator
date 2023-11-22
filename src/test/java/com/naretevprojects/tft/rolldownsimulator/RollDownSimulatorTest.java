@@ -8,6 +8,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.naretevprojects.tft.rolldownsimulator.service.RollDownSimulator;
+import com.naretevprojects.tft.rolldownsimulator.service.UnitData;
 
 public class RollDownSimulatorTest {
 

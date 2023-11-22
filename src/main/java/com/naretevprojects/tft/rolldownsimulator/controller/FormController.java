@@ -1,5 +1,6 @@
-package com.naretevprojects.tft.rolldownsimulator;
+package com.naretevprojects.tft.rolldownsimulator.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,8 +10,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.naretevprojects.tft.rolldownsimulator.configuration.TftRolldownSimulatorProperties;
+import com.naretevprojects.tft.rolldownsimulator.service.RollDownSimulationHandler;
+import com.naretevprojects.tft.rolldownsimulator.service.RollDownSimulator;
+import com.naretevprojects.tft.rolldownsimulator.service.UnitData;
+
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@NoArgsConstructor
 public class FormController {
+
+    @Autowired
+    private RollDownSimulationHandler rollDownSimulationHandler;
+    @Autowired
+    private TftRolldownSimulatorProperties simulatorProperties;
 
     @PostMapping("/submit")
     public ResponseEntity<List<Integer>> submitForm(@RequestParam int tier,
@@ -18,6 +33,7 @@ public class FormController {
                                      @RequestParam int poolConcentration,
                                      @RequestParam int championDuplicators,
                                      @RequestParam String playerLevels,
+                                     //@RequestParam boolean useHeadliners,
                                      @RequestParam int unitData0target,
                                      @RequestParam int unitData0copies,
                                      @RequestParam int unitData0contested,
@@ -52,9 +68,10 @@ public class FormController {
             unitDataList.add(new UnitData(unitData2target, unitData2copies, unitData2contested));
         }
 
-        //Gets the resulting list of rolls it took to get the required number of units.
-        RollDownSimulator rollDownSimulator = new RollDownSimulator(tier, level, poolConcentration,championDuplicators, levelList, unitDataList);
-        List<Integer> resultList = rollDownSimulator.getRolls(20000);
+        List<Integer> resultList = rollDownSimulationHandler.simulateRolls(
+          tier, level, poolConcentration,championDuplicators, levelList, unitDataList,
+          simulatorProperties.getIterations()
+        );
 
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }

@@ -1,10 +1,10 @@
 // Event listener to update the tierLabel when tierSlider value changes
 const tierSlider = document.getElementById("tierSlider");
 const tierLabel = document.querySelector('label[for="tierSlider"]');
-const poolLabel = document.querySelector('label[for="poolInput"]');
+const tierValueSpan = document.getElementById("tierValue");
 tierSlider.addEventListener("input", () => {
     tierLabel.textContent = `Select champion tier: ${tierSlider.value}`;
-    poolLabel.textContent = `Number of tier ${tierSlider.value} champions out of the pool:`;
+    tierValueSpan.textContent = tierSlider.value;
 });
 
 //EventListener to change the levelLabel and playerLevels input when levelSlider changes value
