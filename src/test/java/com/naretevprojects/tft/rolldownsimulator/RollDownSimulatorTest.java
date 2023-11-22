@@ -28,7 +28,7 @@ public class RollDownSimulatorTest {
         assertTrue(resultList.get(resultList.size() - 1) > 0);
         assertEquals(1000, resultList.size());
 
-        rollDownSimulator = new RollDownSimulator(5, 7, 45, 0, levelList, unitDataList);
+        rollDownSimulator = new RollDownSimulator(5, 7, 35, 0, levelList, unitDataList);
 
         resultList = rollDownSimulator.getRolls(1000);
         assertTrue(resultList.get(0) > 0);
