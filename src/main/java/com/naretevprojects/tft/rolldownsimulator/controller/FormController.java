@@ -33,6 +33,7 @@ public class FormController {
                                      @RequestParam int poolConcentration,
                                      @RequestParam int championDuplicators,
                                      @RequestParam String playerLevels,
+                                     //@RequestParam boolean useHeadliners,
                                      @RequestParam int unitData0target,
                                      @RequestParam int unitData0copies,
                                      @RequestParam int unitData0contested,

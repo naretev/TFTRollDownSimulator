@@ -4,3 +4,53 @@
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+
+.myTooltip {
+    position: relative;
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: small;
+    width: 1.2em; /* Adjust the size as needed */
+    height: 1.2em; /* Should be the same as the width for a perfect circle */
+    background-color: #fff; /* Light gray background color */
+    color: #555; /* Text color */
+    text-align: center;
+    line-height: 1.2em; /* Vertically center the text */
+    border-radius: 50%; /* Create a perfect circle */
+}
+
+.myTooltip .myTooltipText {
+    font-size: medium;
+    line-height: 1.2em;
+    visibility: hidden;
+    width: 250px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 6px 3px;
+    position: absolute;
+    z-index: 1;
+    bottom: 160%;
+    left: 50%;
+    margin-left: -125px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.myTooltip .myTooltipText::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.myTooltip:hover .myTooltipText {
+    visibility: visible;
+    opacity: 1;
+}

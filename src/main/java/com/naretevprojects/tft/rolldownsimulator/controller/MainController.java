@@ -27,7 +27,7 @@ public class MainController {
   public String getIndexPage(Model model) {
 
     // Testing logging via Slf4j
-    log.debug("The titel of the page is {}", simulatorProperties.getHtml().getHomePageTitle());
+    log.debug("The title of the page is {}", simulatorProperties.getHtml().getHomePageTitle());
     log.debug("The heading of the page is {}", simulatorProperties.getHtml().getHeading());
     log.debug("The number of iterations are {} ", simulatorProperties.getIterations());
 
@@ -36,6 +36,4 @@ public class MainController {
 
     return "main";
   }
-
-
 }
